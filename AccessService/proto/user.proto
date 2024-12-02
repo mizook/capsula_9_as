@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserProto";
+
+package user;
+
+message Empty {}
+
+message User {
+  int32 id = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message UserRequest {
+  int32 id = 1;
+}
+
+message UserResponse {
+  User user = 1;
+}
+
+message UsersResponse {
+  repeated User users = 1;
+}
+
+message ValidateRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message ValidateResponse {
+  bool is_valid = 1;
+}
+
+service UserService {
+  rpc GetUser (UserRequest) returns (UserResponse);
+  rpc GetAllUsers (Empty) returns (UsersResponse);
+  rpc ValidateCredentials (ValidateRequest) returns (ValidateResponse);
+}
